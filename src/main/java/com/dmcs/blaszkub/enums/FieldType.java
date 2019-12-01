@@ -1,7 +1,11 @@
 package com.dmcs.blaszkub.enums;
 
 public enum FieldType {
-    EMPTY("0"), SHOOTED("X"), SHOOTED_SHIP("#");
+    EMPTY("0"),
+    SHOOTED("X"),
+    SHOOTED_SHIP("#"),
+    SUBMERGED_SHIP("@"),
+    OCCUPIED_BY_SHIP("0");
 
     private final String sign;
 
@@ -11,6 +15,6 @@ public enum FieldType {
 
     @Override
     public String toString() {
-       return sign;
+        return sign;
     }
 }

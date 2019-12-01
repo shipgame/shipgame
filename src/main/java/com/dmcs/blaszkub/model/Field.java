@@ -21,4 +21,12 @@ public class Field {
     public boolean isShootedShip() {
         return getFieldType() != null && getFieldType().equals(FieldType.SHOOTED_SHIP);
     }
+
+    public boolean isSubmergedShip() {
+        return getFieldType() != null && getFieldType().equals(FieldType.SUBMERGED_SHIP);
+    }
+
+    public boolean isOccupiedByShip() {
+        return getFieldType() != null && getFieldType().equals(FieldType.OCCUPIED_BY_SHIP);
+    }
 }

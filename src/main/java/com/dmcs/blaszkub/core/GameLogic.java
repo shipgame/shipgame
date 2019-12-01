@@ -7,26 +7,28 @@ import com.dmcs.blaszkub.model.Field;
 public class GameLogic {
 
     public static boolean isMoveValid(Coordinate coordinate, Board board) {
-        if (!isCordInBoardRange(coordinate.getX(), board.getXAxisLength() - 1) || !isCordInBoardRange(coordinate.getY(), board.getYAxisLength() - 1)) {
+        if (!isCordInBoardRange(coordinate, board)) {
             return false;
         }
 
         return !isFieldAlreadyShooted(coordinate, board);
     }
 
-    private static boolean isCordInBoardRange(int cord, int boardLimit) {
-        return cord >= 0 && cord <= boardLimit;
+    public static boolean isCordInBoardRange(Coordinate coordinate, Board board) {
+        return ((coordinate.getX() >= 0 && coordinate.getX() <= board.getXAxisLength() - 1) && (coordinate.getY() >= 0 && coordinate.getY() <= board.getYAxisLength() - 1));
     }
 
-    private static boolean isFieldAlreadyShooted(Coordinate coordinate, Board board) {
-        for (int i = 0; i < board.getXAxisLength(); i++) {
-            for (int j = 0; j < board.getYAxisLength(); j++) {
-                Field field = board.getBoard()[i][j];
-                if (!field.isEmpty()) {
-                    return true;
-                }
-            }
+    public static boolean isFieldAlreadyShooted(Coordinate coordinate, Board board) {
+        Field field = board.getFieldByCoordinate(coordinate);
+        return !field.isEmpty();
+    }
+
+    public static boolean canFieldBeMarkedAsShooted(Coordinate coordinate, Board board) {
+        if (!isCordInBoardRange(coordinate, board)) {
+            return false;
         }
-        return false;
+
+        Field field = board.getFieldByCoordinate(coordinate);
+        return field.isEmpty();
     }
 }

@@ -7,7 +7,7 @@ import com.dmcs.blaszkub.enums.ModeType;
 public class Main {
 
     public static void main(String[] args) {
-        GameConfig gameConfig = new GameConfig(ModeType.AUTO, 4, 8, 8);
+        GameConfig gameConfig = new GameConfig(ModeType.AUTO, 4, 4, 4);
 
         Game game = new Game(gameConfig);
 
