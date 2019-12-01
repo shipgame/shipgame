@@ -1,0 +1,16 @@
+package com.dmcs.blaszkub;
+
+import com.dmcs.blaszkub.config.GameConfig;
+import com.dmcs.blaszkub.core.Game;
+import com.dmcs.blaszkub.enums.ModeType;
+
+public class Main {
+
+    public static void main(String[] args) {
+        GameConfig gameConfig = new GameConfig(ModeType.AUTO, 4, 8, 8);
+
+        Game game = new Game(gameConfig);
+
+        game.start();
+    }
+}
