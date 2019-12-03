@@ -1,4 +1,7 @@
+package com.dmcs.blaszkub;
+
 import com.dmcs.blaszkub.core.GameLogic;
+import com.dmcs.blaszkub.data.BoardData;
 import com.dmcs.blaszkub.enums.FieldType;
 import com.dmcs.blaszkub.model.Board;
 import com.dmcs.blaszkub.model.Coordinate;
@@ -12,7 +15,7 @@ public class GameLogicTest {
 
     @Test
     public void should_return_false_when_coordinates_are_not_in_board_range() {
-        Board board = getBoard(8, 8);
+        Board board = BoardData.getBoard(8, 8);
 
         Coordinate coordinate_1 = new Coordinate(-1, 5);
         Coordinate coordinate_2 = new Coordinate(2, 10);
@@ -29,11 +32,11 @@ public class GameLogicTest {
 
     @Test
     public void should_return_false_when_coordinates_are_already_shooted() {
-        Board board_1 = getBoard(8, 8);
-        Board board_2 = getBoard(8, 8);
+        Board board_1 = BoardData.getBoard(8, 8);
+        Board board_2 = BoardData.getBoard(8, 8);
 
-        board_1.setField(new Coordinate(4, 4), FieldType.SHOOTED);
-        board_2.setField(new Coordinate(0, 1), FieldType.SHOOTED_SHIP);
+        board_1.setFieldByCoordinate(new Coordinate(4, 4), FieldType.SHOOTED);
+        board_2.setFieldByCoordinate(new Coordinate(0, 1), FieldType.SHOOTED_SHIP);
 
         Coordinate coordinate_1 = new Coordinate(4, 4);
         Coordinate coordinate_2 = new Coordinate(0, 1);
@@ -44,12 +47,12 @@ public class GameLogicTest {
 
     @Test
     public void should_return_true_when_move_is_valid() {
-        Board board_1 = getBoard(8, 8);
-        Board board_2 = getBoard(8, 8);
-        Board board_3 = getBoard(8, 8);
+        Board board_1 = BoardData.getBoard(8, 8);
+        Board board_2 = BoardData.getBoard(8, 8);
+        Board board_3 = BoardData.getBoard(8, 8);
 
-        board_1.setField(new Coordinate(4, 4), FieldType.SHOOTED);
-        board_2.setField(new Coordinate(3, 3), FieldType.SHOOTED_SHIP);
+        board_1.setFieldByCoordinate(new Coordinate(4, 4), FieldType.SHOOTED);
+        board_2.setFieldByCoordinate(new Coordinate(3, 3), FieldType.SHOOTED_SHIP);
 
         Coordinate coordinate_1 = new Coordinate(1, 1);
         Coordinate coordinate_2 = new Coordinate(2, 2);
@@ -62,7 +65,7 @@ public class GameLogicTest {
 
     @Test
     public void should_return_false_when_field_can_not_be_marked_as_shooted_when_coordinate_is_not_in_board_range() {
-        Board board_1 = getBoard(4, 4);
+        Board board_1 = BoardData.getBoard(4, 4);
 
         Coordinate coordinate_1 = new Coordinate(-1, 2);
         Coordinate coordinate_2 = new Coordinate(2, 5);
@@ -79,10 +82,10 @@ public class GameLogicTest {
 
     @Test
     public void should_return_false_when_field_can_not_be_marked_as_shooted_when_field_is_not_empty() {
-        Board board_1 = getBoard(4, 4);
+        Board board_1 = BoardData.getBoard(4, 4);
 
-        board_1.setField(new Coordinate(1, 1), FieldType.SUBMERGED_SHIP);
-        board_1.setField(new Coordinate(2, 3), FieldType.SUBMERGED_SHIP);
+        board_1.setFieldByCoordinate(new Coordinate(1, 1), FieldType.SUBMERGED_SHIP);
+        board_1.setFieldByCoordinate(new Coordinate(2, 3), FieldType.SUBMERGED_SHIP);
 
         Coordinate coordinate_1 = new Coordinate(1, 1);
         Coordinate coordinate_2 = new Coordinate(2, 3);
@@ -94,9 +97,9 @@ public class GameLogicTest {
     /* 1 field ship case */
     @Test
     public void should_return_true_when_field_can_be_marked_as_shooted() {
-        Board board_1 = getBoard(8, 8);
+        Board board_1 = BoardData.getBoard(8, 8);
 
-        board_1.setField(new Coordinate(5, 5), FieldType.SUBMERGED_SHIP);
+        board_1.setFieldByCoordinate(new Coordinate(5, 5), FieldType.SUBMERGED_SHIP);
 
         Coordinate coordinate_1 = new Coordinate(4, 4);
         Coordinate coordinate_2 = new Coordinate(4, 5);
@@ -120,9 +123,9 @@ public class GameLogicTest {
 
     @Test
     public void should_return_false_when_shipfields_can_not_be_set_around_ship_touching_wall() {
-        Board board_1 = getBoard(8, 8);
+        Board board_1 = BoardData.getBoard(8, 8);
 
-        board_1.setField(new Coordinate(0, 0), FieldType.OCCUPIED_BY_SHIP);
+        board_1.setFieldByCoordinate(new Coordinate(0, 0), FieldType.OCCUPIED_BY_SHIP);
 
         Coordinate ship_coordinate_1 = new Coordinate(-1, -1);
         Coordinate ship_coordinate_2 = new Coordinate(-1, 0);
@@ -147,11 +150,11 @@ public class GameLogicTest {
 
     @Test
     public void should_return_false_when_shipfields_can_not_be_set_around_ship_on_the_center_of_board() {
-        Board board_1 = getBoard(8, 8);
+        Board board_1 = BoardData.getBoard(8, 8);
 
-        board_1.setField(new Coordinate(4, 1), FieldType.OCCUPIED_BY_SHIP);
-        board_1.setField(new Coordinate(4, 2), FieldType.OCCUPIED_BY_SHIP);
-        board_1.setField(new Coordinate(4, 3), FieldType.OCCUPIED_BY_SHIP);
+        board_1.setFieldByCoordinate(new Coordinate(4, 1), FieldType.OCCUPIED_BY_SHIP);
+        board_1.setFieldByCoordinate(new Coordinate(4, 2), FieldType.OCCUPIED_BY_SHIP);
+        board_1.setFieldByCoordinate(new Coordinate(4, 3), FieldType.OCCUPIED_BY_SHIP);
 
 
         Coordinate ship_coordinate_2 = new Coordinate(4, 0);
@@ -189,9 +192,9 @@ public class GameLogicTest {
 
     @Test
     public void should_return_false_when_shipfields_can_not_be_inside_other_ship() {
-        Board board_1 = getBoard(8, 8);
+        Board board_1 = BoardData.getBoard(8, 8);
 
-        board_1.setField(new Coordinate(4, 4), FieldType.OCCUPIED_BY_SHIP);
+        board_1.setFieldByCoordinate(new Coordinate(4, 4), FieldType.OCCUPIED_BY_SHIP);
 
         Coordinate ship_coordinate_1 = new Coordinate(4, 4);
 
@@ -200,13 +203,13 @@ public class GameLogicTest {
 
     @Test
     public void should_return_true_when_shipfield_can_be_set() {
-        Board board_1 = getBoard(8, 8);
+        Board board_1 = BoardData.getBoard(8, 8);
 
-        board_1.setField(new Coordinate(0, 0), FieldType.OCCUPIED_BY_SHIP);
+        board_1.setFieldByCoordinate(new Coordinate(0, 0), FieldType.OCCUPIED_BY_SHIP);
 
-        board_1.setField(new Coordinate(4, 1), FieldType.OCCUPIED_BY_SHIP);
-        board_1.setField(new Coordinate(4, 2), FieldType.OCCUPIED_BY_SHIP);
-        board_1.setField(new Coordinate(4, 3), FieldType.OCCUPIED_BY_SHIP);
+        board_1.setFieldByCoordinate(new Coordinate(4, 1), FieldType.OCCUPIED_BY_SHIP);
+        board_1.setFieldByCoordinate(new Coordinate(4, 2), FieldType.OCCUPIED_BY_SHIP);
+        board_1.setFieldByCoordinate(new Coordinate(4, 3), FieldType.OCCUPIED_BY_SHIP);
 
         Coordinate ship_coordinate_1 = new Coordinate(0, 3);
         Coordinate ship_coordinate_2 = new Coordinate(4, 5);
@@ -218,9 +221,5 @@ public class GameLogicTest {
         assertTrue(GameLogic.canShipFieldBeSet(ship_coordinate_2, board_1));
         assertTrue(GameLogic.canShipFieldBeSet(ship_coordinate_3, board_1));
         assertTrue(GameLogic.canShipFieldBeSet(ship_coordinate_4, board_1));
-    }
-
-    private Board getBoard(int xAxisLength, int yAxisLength) {
-        return new Board(xAxisLength, yAxisLength);
     }
 }

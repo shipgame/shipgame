@@ -21,7 +21,7 @@ public class Board {
         initBoard();
     }
 
-    public void setField(Coordinate coordinate, FieldType fieldType) {
+    public void setFieldByCoordinate(Coordinate coordinate, FieldType fieldType) {
         Field field = getFieldByCoordinate(coordinate);
         field.setFieldType(fieldType);
     }
@@ -40,6 +40,17 @@ public class Board {
         for (int i = 0; i < getXAxisLength(); i++) {
             for (int j = 0; j < getYAxisLength(); j++) {
                 if (i == coordinate.getX() && j == coordinate.getY()) {
+                    return board[i][j];
+                }
+            }
+        }
+        return null;
+    }
+
+    public Field getFieldByCoodinates(int x, int y) {
+        for (int i = 0; i < getXAxisLength(); i++) {
+            for (int j = 0; j < getYAxisLength(); j++) {
+                if (i == x && j == y) {
                     return board[i][j];
                 }
             }

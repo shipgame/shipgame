@@ -10,6 +10,7 @@ public class Field {
     private Coordinate coordinate;
     private FieldType fieldType;
 
+
     public boolean isEmpty() {
         return getFieldType() != null && getFieldType().equals(FieldType.EMPTY);
     }

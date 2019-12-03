@@ -3,7 +3,10 @@ package com.dmcs.blaszkub.core;
 import com.dmcs.blaszkub.config.GameConfig;
 import com.dmcs.blaszkub.core.abstraction.IGame;
 import com.dmcs.blaszkub.enums.FieldType;
-import com.dmcs.blaszkub.model.*;
+import com.dmcs.blaszkub.model.Board;
+import com.dmcs.blaszkub.model.Field;
+import com.dmcs.blaszkub.model.Ship;
+import com.dmcs.blaszkub.model.Statistics;
 import com.dmcs.blaszkub.utils.BoardPrinter;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,14 +25,14 @@ public class Game implements IGame {
         initBoard();
     }
 
-    public void move(Coordinate coordinate) {
-        Field field = board.getFieldByCoordinate(coordinate);
+    public void move(int x, int y) {
+        Field field = board.getFieldByCoodinates(x, y);
 
         if (field.isEmpty()) {
-            board.setField(coordinate, FieldType.SHOOTED_SHIP);
+            board.setFieldByCoordinate(field.getCoordinate(), FieldType.SHOOTED_SHIP);
         } else if (field.isOccupiedByShip()) {
-            board.setField(coordinate, FieldType.SHOOTED_SHIP);
-            Ship ship = board.getShipByCoordinate(coordinate);
+            board.setFieldByCoordinate(field.getCoordinate(), FieldType.SHOOTED_SHIP);
+            Ship ship = board.getShipByCoordinate(field.getCoordinate());
             if (ship.areAllFieldsShipShooted()) {
                 ship.setShipAsSubmerged();
                 board.fillFieldsAroundSubmergedShip(ship);
