@@ -31,4 +31,25 @@ public class GameLogic {
         Field field = board.getFieldByCoordinate(coordinate);
         return field.isEmpty();
     }
+
+    public static boolean canShipFieldBeSet(Coordinate coordinate, Board board) {
+        int xStartPoint = coordinate.getX();
+        int yStartPoint = coordinate.getY();
+
+        for (int i = xStartPoint - 1; i <= xStartPoint + 1; i++) {
+            for (int j = yStartPoint - 1; j <= yStartPoint + 1; j++) {
+                Coordinate coordinateAround = new Coordinate(i, j);
+                if (!GameLogic.isCordInBoardRange(coordinateAround, board)) {
+                    continue;
+                }
+
+                Field fieldAround = board.getFieldByCoordinate(coordinateAround);
+                if (!fieldAround.isEmpty()) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 }

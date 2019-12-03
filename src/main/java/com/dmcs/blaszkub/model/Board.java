@@ -66,13 +66,11 @@ public class Board {
             int yStartPoint = coordinate.getY();
 
             for (int i = xStartPoint - 1; i <= xStartPoint + 1; i++) {
-                for (int j = yStartPoint - 1; j <= yStartPoint; j++) {
+                for (int j = yStartPoint - 1; j <= yStartPoint + 1; j++) {
                     Coordinate coordinateToFill = new Coordinate(i, j);
-                    if (GameLogic.isCordInBoardRange(coordinateToFill, this)) {
-                        Field field = getFieldByCoordinate(coordinateToFill);
-                        if (field.isEmpty()) {
-                            field.setFieldType(FieldType.SHOOTED);
-                        }
+                    if (GameLogic.canFieldBeMarkedAsShooted(coordinateToFill, this)) {
+                        Field field = getFieldByCoordinate(coordinate);
+                        field.setFieldType(FieldType.SHOOTED);
                     }
                 }
             }

@@ -3,10 +3,7 @@ package com.dmcs.blaszkub.core;
 import com.dmcs.blaszkub.config.GameConfig;
 import com.dmcs.blaszkub.core.abstraction.IGame;
 import com.dmcs.blaszkub.enums.FieldType;
-import com.dmcs.blaszkub.model.Board;
-import com.dmcs.blaszkub.model.Coordinate;
-import com.dmcs.blaszkub.model.Field;
-import com.dmcs.blaszkub.model.Ship;
+import com.dmcs.blaszkub.model.*;
 import com.dmcs.blaszkub.utils.BoardPrinter;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +15,7 @@ public class Game implements IGame {
     private GameConfig gameConfig;
     private boolean isFinished;
     private Board board;
+    private Statistics statistics;
 
     public Game(GameConfig gameConfig) {
         this.gameConfig = gameConfig;
