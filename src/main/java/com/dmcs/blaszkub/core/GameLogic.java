@@ -1,21 +1,36 @@
 package com.dmcs.blaszkub.core;
 
+import com.dmcs.blaszkub.exception.FieldNotFoundException;
 import com.dmcs.blaszkub.model.Board;
 import com.dmcs.blaszkub.model.Coordinate;
 import com.dmcs.blaszkub.model.Field;
 
 public class GameLogic {
 
-    public static boolean isMoveValid(Coordinate coordinate, Board board) {
-        if (!isCordInBoardRange(coordinate, board)) {
+    public static boolean isMoveValid(int x, int y, Board board) {
+        if (!isCordInBoardRange(x, y, board)) {
             return false;
         }
 
-        return !isFieldAlreadyShooted(coordinate, board);
+        return !isFieldAlreadyShooted(board.getFieldByCoodinates(x, y).getCoordinate(), board);
+    }
+
+    public static boolean isCordInBoardRange(int x, int y, Board board) {
+        try {
+            board.getFieldByCoodinates(x, y);
+            return true;
+        } catch (FieldNotFoundException e) {
+            return false;
+        }
     }
 
     public static boolean isCordInBoardRange(Coordinate coordinate, Board board) {
-        return ((coordinate.getX() >= 0 && coordinate.getX() <= board.getXAxisLength() - 1) && (coordinate.getY() >= 0 && coordinate.getY() <= board.getYAxisLength() - 1));
+        try {
+            board.getFieldByCoordinate(coordinate);
+            return true;
+        } catch (FieldNotFoundException e) {
+            return false;
+        }
     }
 
     public static boolean isFieldAlreadyShooted(Coordinate coordinate, Board board) {
@@ -23,12 +38,12 @@ public class GameLogic {
         return !field.isEmpty();
     }
 
-    public static boolean canFieldBeMarkedAsShooted(Coordinate coordinate, Board board) {
-        if (!isCordInBoardRange(coordinate, board)) {
+    public static boolean canFieldBeMarkedAsShooted(int x, int y, Board board) {
+        if (!isCordInBoardRange(x, y, board)) {
             return false;
         }
 
-        Field field = board.getFieldByCoordinate(coordinate);
+        Field field = board.getFieldByCoodinates(x, y);
         return field.isEmpty();
     }
 

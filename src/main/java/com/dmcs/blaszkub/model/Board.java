@@ -2,8 +2,10 @@ package com.dmcs.blaszkub.model;
 
 import com.dmcs.blaszkub.core.GameLogic;
 import com.dmcs.blaszkub.enums.FieldType;
+import com.dmcs.blaszkub.exception.FieldNotFoundException;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,7 +15,7 @@ public class Board {
     private int xAxisLength;
     private int yAxisLength;
     private Field[][] board;
-    private List<Ship> ships;
+    private List<Ship> ships = new ArrayList<>();
 
     public Board(int xAxisLength, int yAxisLength) {
         this.xAxisLength = xAxisLength;
@@ -26,15 +28,6 @@ public class Board {
         field.setFieldType(fieldType);
     }
 
-    private void initBoard() {
-        this.board = new Field[xAxisLength][yAxisLength];
-        for (int i = 0; i < getXAxisLength(); i++) {
-            for (int j = 0; j < getYAxisLength(); j++) {
-                board[i][j] = new Field(new Coordinate(i, j), FieldType.EMPTY);
-            }
-        }
-    }
-
 
     public Field getFieldByCoordinate(Coordinate coordinate) {
         for (int i = 0; i < getXAxisLength(); i++) {
@@ -44,7 +37,7 @@ public class Board {
                 }
             }
         }
-        return null;
+        throw new FieldNotFoundException(coordinate.getX(), coordinate.getY());
     }
 
     public Field getFieldByCoodinates(int x, int y) {
@@ -55,7 +48,7 @@ public class Board {
                 }
             }
         }
-        return null;
+        throw new FieldNotFoundException(x, y);
     }
 
     public Ship getShipByCoordinate(final Coordinate coordinate) {
@@ -79,13 +72,36 @@ public class Board {
             for (int i = xStartPoint - 1; i <= xStartPoint + 1; i++) {
                 for (int j = yStartPoint - 1; j <= yStartPoint + 1; j++) {
                     Coordinate coordinateToFill = new Coordinate(i, j);
-                    if (GameLogic.canFieldBeMarkedAsShooted(coordinateToFill, this)) {
-                        Field field = getFieldByCoordinate(coordinate);
+
+                    if (GameLogic.canFieldBeMarkedAsShooted(coordinateToFill.getX(), coordinateToFill.getY(), this)) {
+                        Field field = getFieldByCoodinates(coordinateToFill.getX(), coordinateToFill.getY());
                         field.setFieldType(FieldType.SHOOTED);
                     }
+
+//                    if (!GameLogic.isCordInBoardRange(coordinateToFill.getX(), coordinateToFill.getY(), this)) {
+//                        continue;
+//                    }
+//
+//                    if (GameLogic.canShipFieldBeSet(coordinateToFill, this)) {
+//                        Field field = getFieldByCoodinates(coordinateToFill.getX(), coordinateToFill.getY());
+//                        field.setFieldType(FieldType.SHOOTED);
+//                    }
                 }
             }
 
+        }
+    }
+
+    public void addShip(Ship ship) {
+        getShips().add(ship);
+    }
+
+    private void initBoard() {
+        this.board = new Field[xAxisLength][yAxisLength];
+        for (int i = 0; i < getXAxisLength(); i++) {
+            for (int j = 0; j < getYAxisLength(); j++) {
+                board[i][j] = new Field(new Coordinate(i, j), FieldType.EMPTY);
+            }
         }
     }
 }

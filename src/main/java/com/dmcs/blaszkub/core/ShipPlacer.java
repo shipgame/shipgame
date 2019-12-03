@@ -20,5 +20,7 @@ public class ShipPlacer {
         for (Field field : fields) {
             board.setFieldByCoordinate(field.getCoordinate(), FieldType.OCCUPIED_BY_SHIP);
         }
+
+        board.addShip(ship);
     }
 }

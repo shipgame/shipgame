@@ -2,9 +2,7 @@ package com.dmcs.blaszkub.core;
 
 import com.dmcs.blaszkub.config.GameConfig;
 import com.dmcs.blaszkub.core.abstraction.IGame;
-import com.dmcs.blaszkub.enums.FieldType;
 import com.dmcs.blaszkub.model.Board;
-import com.dmcs.blaszkub.model.Field;
 import com.dmcs.blaszkub.model.Ship;
 import com.dmcs.blaszkub.model.Statistics;
 import com.dmcs.blaszkub.utils.BoardPrinter;
@@ -15,33 +13,16 @@ import lombok.Setter;
 @Setter
 public class Game implements IGame {
 
-    private GameConfig gameConfig;
+    private final GameConfig gameConfig;
     private boolean isFinished;
     private Board board;
     private Statistics statistics;
+    private final Player player;
 
-    public Game(GameConfig gameConfig) {
+    public Game(GameConfig gameConfig, Player player) {
         this.gameConfig = gameConfig;
+        this.player = player;
         initBoard();
-    }
-
-    public void move(int x, int y) {
-        Field field = board.getFieldByCoodinates(x, y);
-
-        if (field.isEmpty()) {
-            board.setFieldByCoordinate(field.getCoordinate(), FieldType.SHOOTED_SHIP);
-        } else if (field.isOccupiedByShip()) {
-            board.setFieldByCoordinate(field.getCoordinate(), FieldType.SHOOTED_SHIP);
-            Ship ship = board.getShipByCoordinate(field.getCoordinate());
-            if (ship.areAllFieldsShipShooted()) {
-                ship.setShipAsSubmerged();
-                board.fillFieldsAroundSubmergedShip(ship);
-            }
-        }
-        //TODO jesli field jest pusty -> daj na shooted
-        //jesli field jset zajety przez statek -> wyciagnij shipa po koordynatach
-        //zmien pole na shipshooted, jesli dla tego statku wszystkie fieldy sa jako shipShooted
-        //to dookola daj na shooted pola i zmien status wszystkich pol na zatopiony
     }
 
     public void start() {
@@ -49,10 +30,19 @@ public class Game implements IGame {
         //wyciagnij liczbe statkow i je rozmiesc, jak automat to losuj
         //jak manual podajac kordy statku ustawiaj go
 
+        //TODO tutaj pobieraj dane ze strumienia, w petli while poki gra nie jest skonczona
+
+        //TODO na player wywolaj metode makeMove
+        //TODO po kazdym ruchu sprawdzaj czy gra nie jest skonczona
+
         BoardPrinter.print(board);
     }
 
     private void initBoard() {
         this.board = new Board(gameConfig.getXAxisLength(), gameConfig.getYAxisLength());
+    }
+
+    private boolean isGameFinished() {
+        return getBoard().getShips().stream().allMatch(Ship::isSubmerged);
     }
 }

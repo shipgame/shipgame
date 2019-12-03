@@ -17,17 +17,11 @@ public class GameLogicTest {
     public void should_return_false_when_coordinates_are_not_in_board_range() {
         Board board = BoardData.getBoard(8, 8);
 
-        Coordinate coordinate_1 = new Coordinate(-1, 5);
-        Coordinate coordinate_2 = new Coordinate(2, 10);
-        Coordinate coordinate_3 = new Coordinate(8, 8);
-        Coordinate coordinate_4 = new Coordinate(32, 33);
-        Coordinate coordinate_5 = new Coordinate(-2, -10);
-
-        assertFalse(GameLogic.isMoveValid(coordinate_1, board));
-        assertFalse(GameLogic.isMoveValid(coordinate_2, board));
-        assertFalse(GameLogic.isMoveValid(coordinate_3, board));
-        assertFalse(GameLogic.isMoveValid(coordinate_4, board));
-        assertFalse(GameLogic.isMoveValid(coordinate_5, board));
+        assertFalse(GameLogic.isMoveValid(-1, 5, board));
+        assertFalse(GameLogic.isMoveValid(2, 10, board));
+        assertFalse(GameLogic.isMoveValid(8, 8, board));
+        assertFalse(GameLogic.isMoveValid(32, 33, board));
+        assertFalse(GameLogic.isMoveValid(-2, -10, board));
     }
 
     @Test
@@ -38,11 +32,9 @@ public class GameLogicTest {
         board_1.setFieldByCoordinate(new Coordinate(4, 4), FieldType.SHOOTED);
         board_2.setFieldByCoordinate(new Coordinate(0, 1), FieldType.SHOOTED_SHIP);
 
-        Coordinate coordinate_1 = new Coordinate(4, 4);
-        Coordinate coordinate_2 = new Coordinate(0, 1);
 
-        assertFalse(GameLogic.isMoveValid(coordinate_1, board_1));
-        assertFalse(GameLogic.isMoveValid(coordinate_2, board_2));
+        assertFalse(GameLogic.isMoveValid(4, 4, board_1));
+        assertFalse(GameLogic.isMoveValid(0, 1, board_2));
     }
 
     @Test
@@ -54,30 +46,21 @@ public class GameLogicTest {
         board_1.setFieldByCoordinate(new Coordinate(4, 4), FieldType.SHOOTED);
         board_2.setFieldByCoordinate(new Coordinate(3, 3), FieldType.SHOOTED_SHIP);
 
-        Coordinate coordinate_1 = new Coordinate(1, 1);
-        Coordinate coordinate_2 = new Coordinate(2, 2);
-        Coordinate coordinate_3 = new Coordinate(0, 0);
 
-        assertTrue(GameLogic.isMoveValid(coordinate_1, board_1));
-        assertTrue(GameLogic.isMoveValid(coordinate_2, board_2));
-        assertTrue(GameLogic.isMoveValid(coordinate_3, board_3));
+        assertTrue(GameLogic.isMoveValid(1, 1, board_1));
+        assertTrue(GameLogic.isMoveValid(2, 2, board_2));
+        assertTrue(GameLogic.isMoveValid(0, 0, board_3));
     }
 
     @Test
     public void should_return_false_when_field_can_not_be_marked_as_shooted_when_coordinate_is_not_in_board_range() {
         Board board_1 = BoardData.getBoard(4, 4);
 
-        Coordinate coordinate_1 = new Coordinate(-1, 2);
-        Coordinate coordinate_2 = new Coordinate(2, 5);
-        Coordinate coordinate_3 = new Coordinate(4, 4);
-        Coordinate coordinate_4 = new Coordinate(-2, -3);
-        Coordinate coordinate_5 = new Coordinate(6, 6);
-
-        assertFalse(GameLogic.canFieldBeMarkedAsShooted(coordinate_1, board_1));
-        assertFalse(GameLogic.canFieldBeMarkedAsShooted(coordinate_2, board_1));
-        assertFalse(GameLogic.canFieldBeMarkedAsShooted(coordinate_3, board_1));
-        assertFalse(GameLogic.canFieldBeMarkedAsShooted(coordinate_4, board_1));
-        assertFalse(GameLogic.canFieldBeMarkedAsShooted(coordinate_5, board_1));
+        assertFalse(GameLogic.canFieldBeMarkedAsShooted(-1, 2, board_1));
+        assertFalse(GameLogic.canFieldBeMarkedAsShooted(2, 5, board_1));
+        assertFalse(GameLogic.canFieldBeMarkedAsShooted(4, 4, board_1));
+        assertFalse(GameLogic.canFieldBeMarkedAsShooted(-2, -3, board_1));
+        assertFalse(GameLogic.canFieldBeMarkedAsShooted(6, 6, board_1));
     }
 
     @Test
@@ -87,38 +70,27 @@ public class GameLogicTest {
         board_1.setFieldByCoordinate(new Coordinate(1, 1), FieldType.SUBMERGED_SHIP);
         board_1.setFieldByCoordinate(new Coordinate(2, 3), FieldType.SUBMERGED_SHIP);
 
-        Coordinate coordinate_1 = new Coordinate(1, 1);
-        Coordinate coordinate_2 = new Coordinate(2, 3);
-
-        assertFalse(GameLogic.canFieldBeMarkedAsShooted(coordinate_1, board_1));
-        assertFalse(GameLogic.canFieldBeMarkedAsShooted(coordinate_2, board_1));
+        assertFalse(GameLogic.canFieldBeMarkedAsShooted(1, 1, board_1));
+        assertFalse(GameLogic.canFieldBeMarkedAsShooted(2, 3, board_1));
     }
 
     /* 1 field ship case */
+
     @Test
     public void should_return_true_when_field_can_be_marked_as_shooted() {
         Board board_1 = BoardData.getBoard(8, 8);
 
         board_1.setFieldByCoordinate(new Coordinate(5, 5), FieldType.SUBMERGED_SHIP);
 
-        Coordinate coordinate_1 = new Coordinate(4, 4);
-        Coordinate coordinate_2 = new Coordinate(4, 5);
-        Coordinate coordinate_3 = new Coordinate(4, 6);
-        Coordinate coordinate_4 = new Coordinate(5, 4);
-        Coordinate coordinate_5 = new Coordinate(5, 6);
-        Coordinate coordinate_6 = new Coordinate(6, 4);
-        Coordinate coordinate_7 = new Coordinate(6, 5);
-        Coordinate coordinate_8 = new Coordinate(6, 6);
+        assertTrue(GameLogic.canFieldBeMarkedAsShooted(4, 4, board_1));
+        assertTrue(GameLogic.canFieldBeMarkedAsShooted(4, 5, board_1));
+        assertTrue(GameLogic.canFieldBeMarkedAsShooted(4, 6, board_1));
+        assertTrue(GameLogic.canFieldBeMarkedAsShooted(5, 4, board_1));
 
-        assertTrue(GameLogic.canFieldBeMarkedAsShooted(coordinate_1, board_1));
-        assertTrue(GameLogic.canFieldBeMarkedAsShooted(coordinate_2, board_1));
-        assertTrue(GameLogic.canFieldBeMarkedAsShooted(coordinate_3, board_1));
-        assertTrue(GameLogic.canFieldBeMarkedAsShooted(coordinate_4, board_1));
-
-        assertTrue(GameLogic.canFieldBeMarkedAsShooted(coordinate_5, board_1));
-        assertTrue(GameLogic.canFieldBeMarkedAsShooted(coordinate_6, board_1));
-        assertTrue(GameLogic.canFieldBeMarkedAsShooted(coordinate_7, board_1));
-        assertTrue(GameLogic.canFieldBeMarkedAsShooted(coordinate_8, board_1));
+        assertTrue(GameLogic.canFieldBeMarkedAsShooted(5, 6, board_1));
+        assertTrue(GameLogic.canFieldBeMarkedAsShooted(6, 4, board_1));
+        assertTrue(GameLogic.canFieldBeMarkedAsShooted(6, 5, board_1));
+        assertTrue(GameLogic.canFieldBeMarkedAsShooted(6, 6, board_1));
     }
 
     @Test
