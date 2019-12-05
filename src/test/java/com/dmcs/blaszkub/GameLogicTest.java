@@ -17,24 +17,35 @@ public class GameLogicTest {
     public void should_return_false_when_coordinates_are_not_in_board_range() {
         Board board = BoardData.getBoard(8, 8);
 
-        assertFalse(GameLogic.isMoveValid(-1, 5, board));
-        assertFalse(GameLogic.isMoveValid(2, 10, board));
-        assertFalse(GameLogic.isMoveValid(8, 8, board));
-        assertFalse(GameLogic.isMoveValid(32, 33, board));
-        assertFalse(GameLogic.isMoveValid(-2, -10, board));
+        assertFalse(GameLogic.isCordInBoardRange(-1, 5, board));
+        assertFalse(GameLogic.isCordInBoardRange(2, 10, board));
+        assertFalse(GameLogic.isCordInBoardRange(8, 8, board));
+        assertFalse(GameLogic.isCordInBoardRange(32, 33, board));
+        assertFalse(GameLogic.isCordInBoardRange(-2, -10, board));
     }
 
     @Test
-    public void should_return_false_when_coordinates_are_already_shooted() {
+    public void should_return_true_when_coordinates_are_in_board_range() {
+        Board board = BoardData.getBoard(8, 8);
+
+        assertTrue(GameLogic.isCordInBoardRange(0, 0, board));
+        assertTrue(GameLogic.isCordInBoardRange(2, 3, board));
+        assertTrue(GameLogic.isCordInBoardRange(5, 3, board));
+    }
+
+    @Test
+    public void should_return_false_when_move_is_invalid_when_coordinates_are_already_shooted() {
         Board board_1 = BoardData.getBoard(8, 8);
         Board board_2 = BoardData.getBoard(8, 8);
 
         board_1.setFieldByCoordinate(new Coordinate(4, 4), FieldType.SHOOTED);
         board_2.setFieldByCoordinate(new Coordinate(0, 1), FieldType.SHOOTED_SHIP);
+        board_2.setFieldByCoordinate(new Coordinate(3, 3), FieldType.SUBMERGED_SHIP);
 
 
         assertFalse(GameLogic.isMoveValid(4, 4, board_1));
         assertFalse(GameLogic.isMoveValid(0, 1, board_2));
+        assertFalse(GameLogic.isMoveValid(3, 3, board_2));
     }
 
     @Test
@@ -45,11 +56,13 @@ public class GameLogicTest {
 
         board_1.setFieldByCoordinate(new Coordinate(4, 4), FieldType.SHOOTED);
         board_2.setFieldByCoordinate(new Coordinate(3, 3), FieldType.SHOOTED_SHIP);
+        board_3.setFieldByCoordinate(new Coordinate(3, 3), FieldType.OCCUPIED_BY_SHIP);
 
 
         assertTrue(GameLogic.isMoveValid(1, 1, board_1));
         assertTrue(GameLogic.isMoveValid(2, 2, board_2));
         assertTrue(GameLogic.isMoveValid(0, 0, board_3));
+        assertTrue(GameLogic.isMoveValid(3, 3, board_3));
     }
 
     @Test

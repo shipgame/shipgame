@@ -35,7 +35,7 @@ public class GameLogic {
 
     public static boolean isFieldAlreadyShooted(Coordinate coordinate, Board board) {
         Field field = board.getFieldByCoordinate(coordinate);
-        return !field.isEmpty();
+        return field.isShootedShip() || field.isShooted() || field.isSubmergedShip();
     }
 
     public static boolean canFieldBeMarkedAsShooted(int x, int y, Board board) {

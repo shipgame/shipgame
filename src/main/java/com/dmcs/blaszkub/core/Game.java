@@ -2,6 +2,7 @@ package com.dmcs.blaszkub.core;
 
 import com.dmcs.blaszkub.config.GameConfig;
 import com.dmcs.blaszkub.core.abstraction.IGame;
+import com.dmcs.blaszkub.core.abstraction.IPlayer;
 import com.dmcs.blaszkub.model.Board;
 import com.dmcs.blaszkub.model.Ship;
 import com.dmcs.blaszkub.model.Statistics;
@@ -14,12 +15,13 @@ import lombok.Setter;
 public class Game implements IGame {
 
     private final GameConfig gameConfig;
-    private boolean isFinished;
+    private final IPlayer player;
     private Board board;
     private Statistics statistics;
-    private final Player player;
 
-    public Game(GameConfig gameConfig, Player player) {
+    private boolean isFinished;
+
+    public Game(GameConfig gameConfig, IPlayer player) {
         this.gameConfig = gameConfig;
         this.player = player;
         initBoard();
@@ -34,6 +36,7 @@ public class Game implements IGame {
 
         //TODO na player wywolaj metode makeMove
         //TODO po kazdym ruchu sprawdzaj czy gra nie jest skonczona
+
 
         BoardPrinter.print(board);
     }

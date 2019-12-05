@@ -77,15 +77,6 @@ public class Board {
                         Field field = getFieldByCoodinates(coordinateToFill.getX(), coordinateToFill.getY());
                         field.setFieldType(FieldType.SHOOTED);
                     }
-
-//                    if (!GameLogic.isCordInBoardRange(coordinateToFill.getX(), coordinateToFill.getY(), this)) {
-//                        continue;
-//                    }
-//
-//                    if (GameLogic.canShipFieldBeSet(coordinateToFill, this)) {
-//                        Field field = getFieldByCoodinates(coordinateToFill.getX(), coordinateToFill.getY());
-//                        field.setFieldType(FieldType.SHOOTED);
-//                    }
                 }
             }
 
