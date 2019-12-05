@@ -3,7 +3,7 @@ package com.dmcs.blaszkub.enums;
 public enum ShipType {
     ONE, TWO, THREE, FOUR;
 
-    public int getNumber(ShipType shipType) {
+    public int getNumberOfFieldsOccupied(ShipType shipType) {
         switch (shipType) {
             case ONE:
                 return 1;

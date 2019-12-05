@@ -15,7 +15,7 @@ public class GameTest {
 
     @Test
     public void move_test1() {
-        Game game = new Game(new GameConfig(ModeType.AUTO, 2, 8, 8), new Player());
+        Game game = new Game(new GameConfig(ModeType.AUTO, 8, 8), new Player());
 
         Board board = game.getBoard();
 

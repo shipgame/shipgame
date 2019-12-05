@@ -1,19 +1,28 @@
 package com.dmcs.blaszkub.config;
 
 import com.dmcs.blaszkub.enums.ModeType;
+import com.dmcs.blaszkub.enums.ShipType;
 import lombok.Data;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Data
 public class GameConfig {
-    private ModeType modeType;
-    private int shipNumber;
 
+    private final List<ShipType> shipConfigs = Arrays.asList(
+            ShipType.ONE,
+            ShipType.TWO,
+            ShipType.THREE,
+            ShipType.FOUR
+    );
+
+    private ModeType modeType;
     private int xAxisLength;
     private int yAxisLength;
 
-    public GameConfig(ModeType modeType, int shipNumber, int xAxisLength, int yAxisLength) {
+    public GameConfig(ModeType modeType, int xAxisLength, int yAxisLength) {
         this.modeType = modeType;
-        this.shipNumber = shipNumber;
         this.xAxisLength = xAxisLength;
         this.yAxisLength = yAxisLength;
     }
