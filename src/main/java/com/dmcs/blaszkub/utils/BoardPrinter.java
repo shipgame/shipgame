@@ -10,7 +10,7 @@ public class BoardPrinter {
     public static void print(Board board) {
         for (int i = 0; i < board.getXAxisLength(); i++) {
             for (int j = 0; j < board.getYAxisLength(); j++) {
-                Field field  = board.getBoard()[i][j];
+                Field field = board.getBoard()[i][j];
                 System.out.print(field.getFieldType());
             }
             System.out.println("");

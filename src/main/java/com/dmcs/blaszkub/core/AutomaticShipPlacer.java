@@ -87,13 +87,13 @@ public class AutomaticShipPlacer {
                     Field field = board.getFieldByCoodinates(startingX, startingY - i);
                     fields.add(field);
                 } else if (directionType.equals(DirectionType.TOP)) {
-                    Field field = board.getFieldByCoodinates(startingX, startingY - i);
+                    Field field = board.getFieldByCoodinates(startingX + i, startingY);
                     fields.add(field);
                 } else if (directionType.equals(DirectionType.RIGHT)) {
-                    Field field = board.getFieldByCoodinates(startingX, startingY - i);
+                    Field field = board.getFieldByCoodinates(startingX, startingY + i);
                     fields.add(field);
                 } else if (directionType.equals(DirectionType.DOWN)) {
-                    Field field = board.getFieldByCoodinates(startingX, startingY - i);
+                    Field field = board.getFieldByCoodinates(startingX - i, startingY);
                     fields.add(field);
                 } else {
                     return Collections.emptyList();

@@ -6,9 +6,8 @@ import com.dmcs.blaszkub.data.BoardData;
 import com.dmcs.blaszkub.enums.ShipType;
 import com.dmcs.blaszkub.exception.AutomaticPlacingShipsException;
 import com.dmcs.blaszkub.model.Board;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import com.dmcs.blaszkub.utils.BoardPrinter;
+import org.junit.jupiter.api.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +18,13 @@ public class AutomaticShipPlacerTest {
 
     @BeforeEach
     public void setup() {
-        Constants.MAX_AUTOMATIC_PLACING_SHIPS_TIME_IN_SECONDS = 8L;
+        Constants.MAX_AUTOMATIC_PLACING_SHIPS_TIME_IN_SECONDS = 30L;
+    }
+
+    @AfterEach
+    private void printLine() {
+        System.out.println("");
+        System.out.println("-------------------------------------");
     }
 
     @Test
@@ -36,6 +41,23 @@ public class AutomaticShipPlacerTest {
         automaticShipPlacer.placeShips(shipConfigs, board);
 
         assertSame(board.getShips().size(), 3);
+        BoardPrinter.print(board);
+    }
+
+    @Test
+    public void should_place_two_two_field_ships() {
+        Board board = BoardData.getBoard(8, 8);
+
+        List<ShipType> shipConfigs = Arrays.asList(
+                ShipType.TWO,
+                ShipType.TWO
+        );
+
+        AutomaticShipPlacer automaticShipPlacer = new AutomaticShipPlacer();
+        automaticShipPlacer.placeShips(shipConfigs, board);
+
+        assertSame(board.getShips().size(), 2);
+        BoardPrinter.print(board);
     }
 
     /*
@@ -60,6 +82,7 @@ public class AutomaticShipPlacerTest {
         automaticShipPlacer.placeShips(shipConfigs, board);
 
         assertSame(board.getShips().size(), 4);
+        BoardPrinter.print(board);
     }
 
 
@@ -70,7 +93,7 @@ public class AutomaticShipPlacerTest {
     */
     @Test
     public void should_place_ships_scenario_2() {
-        Board board = BoardData.getBoard(8, 8);
+        Board board = BoardData.getBoard(12, 12);
 
         List<ShipType> shipConfigs = Arrays.asList(
                 ShipType.ONE,
@@ -85,8 +108,32 @@ public class AutomaticShipPlacerTest {
         automaticShipPlacer.placeShips(shipConfigs, board);
 
         assertSame(board.getShips().size(), 6);
+        BoardPrinter.print(board);
     }
 
+    /*
+ Ships:
+  ONE, ONE
+  FOUR
+  */
+    @Test
+    public void should_place_ships_scenario_3() {
+        Board board = BoardData.getBoard(15, 15);
+
+        List<ShipType> shipConfigs = Arrays.asList(
+                ShipType.ONE,
+                ShipType.ONE,
+                ShipType.FOUR
+        );
+
+        AutomaticShipPlacer automaticShipPlacer = new AutomaticShipPlacer();
+        automaticShipPlacer.placeShips(shipConfigs, board);
+
+        assertSame(board.getShips().size(), 3);
+        BoardPrinter.print(board);
+    }
+
+    @Disabled
     @Test
     public void should_throw_automatic_placing_ship_exception_when_can_not_place_ships_automatically() {
         Board board = BoardData.getBoard(4, 4);

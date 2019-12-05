@@ -5,7 +5,7 @@ public enum FieldType {
     SHOOTED("X"),
     SHOOTED_SHIP("#"),
     SUBMERGED_SHIP("@"),
-    OCCUPIED_BY_SHIP("0");
+    OCCUPIED_BY_SHIP("$");
 
     private final String sign;
 
