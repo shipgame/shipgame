@@ -3,12 +3,16 @@ package com.dmcs.blaszkub.core;
 import com.dmcs.blaszkub.config.GameConfig;
 import com.dmcs.blaszkub.core.abstraction.IGame;
 import com.dmcs.blaszkub.core.abstraction.IPlayer;
+import com.dmcs.blaszkub.enums.ShipType;
 import com.dmcs.blaszkub.model.Board;
 import com.dmcs.blaszkub.model.Ship;
 import com.dmcs.blaszkub.model.Statistics;
 import com.dmcs.blaszkub.utils.BoardPrinter;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Getter
 @Setter
@@ -36,8 +40,6 @@ public class Game implements IGame {
 
         //TODO na player wywolaj metode makeMove
         //TODO po kazdym ruchu sprawdzaj czy gra nie jest skonczona
-
-
         BoardPrinter.print(board);
     }
 

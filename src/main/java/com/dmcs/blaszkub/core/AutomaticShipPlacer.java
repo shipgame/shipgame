@@ -11,6 +11,7 @@ import com.dmcs.blaszkub.model.Field;
 import com.dmcs.blaszkub.model.Ship;
 import com.dmcs.blaszkub.utils.NumberGenerator;
 import com.dmcs.blaszkub.utils.RandomEnum;
+import com.dmcs.blaszkub.utils.TimeCounter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,8 +20,8 @@ import java.util.List;
 public class AutomaticShipPlacer {
 
     public void placeShips(List<ShipType> shipTypes, Board board) throws AutomaticPlacingShipsException {
-        int generating_fields_attempts_counter = 0;
-        int placing_ship_attempts_counter = 0;
+        TimeCounter generatingFieldsTimer = new TimeCounter();
+        TimeCounter placingShipTimer = new TimeCounter();
 
         for (ShipType shipType : shipTypes) {
 
@@ -28,32 +29,32 @@ public class AutomaticShipPlacer {
 
             Ship ship = new Ship();
 
+            placingShipTimer.start();
             do {
                 setStartingPoint(startingCoordinate, board);
 
                 DirectionType direction = RandomEnum.randomEnum(DirectionType.class);
                 List<Field> fields;
 
+                generatingFieldsTimer.start();
                 do {
                     fields = getShipFields(direction, shipType, board, startingCoordinate);
-                    generating_fields_attempts_counter++;
-
-                    if (generating_fields_attempts_counter == Constants.MAX_AUTOMATIC_PLACING_SHIPS_ATTEMPTS) {
-                        throw new AutomaticPlacingShipsException("Couldnt' auto set ships, check for board size or ship config");
+                    if (generatingFieldsTimer.getTimeSpentInMilis() >= Constants.MAX_AUTOMATIC_PLACING_SHIPS_TIME_IN_SECONDS) {
+                        throw new AutomaticPlacingShipsException("Couldn't auto set ships, check for board size or ship config");
                     }
                 } while (fields.isEmpty());
-                generating_fields_attempts_counter = 0;
+
+                generatingFieldsTimer.reset();
 
                 ship.setFields(fields);
                 ship.setShipType(shipType);
 
-                placing_ship_attempts_counter++;
-                if (placing_ship_attempts_counter == Constants.MAX_AUTOMATIC_PLACING_SHIPS_ATTEMPTS) {
-                    throw new AutomaticPlacingShipsException("Couldnt' auto set ships, check for board size or ship config");
+                if (placingShipTimer.getTimeSpentInMilis() >= Constants.MAX_AUTOMATIC_PLACING_SHIPS_TIME_IN_SECONDS) {
+                    throw new AutomaticPlacingShipsException("Couldn't  auto set ships, check for board size or ship config");
                 }
             } while (!ShipPlacer.canShipBePlaced(ship, board));
+            placingShipTimer.reset();
 
-            placing_ship_attempts_counter = 0;
             ShipPlacer.placeShip(ship, board);
         }
     }

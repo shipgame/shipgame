@@ -1,18 +1,29 @@
 package com.dmcs.blaszkub.utils;
 
+import java.time.Instant;
+
 public class TimeCounter {
-    private static Long startMilis;
-    private static Long endMilis;
+    private Long startMilis;
+    private Long endMilis;
 
-    public static void start() {
+    private Instant start;
+    private Instant end;
+
+    public void start() {
         startMilis = System.currentTimeMillis();
-    }
-
-    public static void stop() {
-        endMilis = System.currentTimeMillis();
+        start = Instant.now();
     }
 
     public Long getTimeSpentInMilis() {
-        return endMilis - startMilis;
+        endMilis = System.currentTimeMillis();
+        end = Instant.now();
+//        Long timeSpent = endMilis - startMilis;
+        Long timeSpent = end.getEpochSecond() - start.getEpochSecond();
+        return timeSpent;
+    }
+
+    public void reset() {
+        startMilis = 0L;
+        endMilis = 0L;
     }
 }
