@@ -87,6 +87,10 @@ public class Board {
         getShips().add(ship);
     }
 
+    public void removeAllShips() {
+        getShips().clear();
+    }
+
     private void initBoard() {
         this.board = new Field[xAxisLength][yAxisLength];
         for (int i = 0; i < getXAxisLength(); i++) {

@@ -40,6 +40,7 @@ public class AutomaticShipPlacer {
                 do {
                     fields = getShipFields(direction, shipType, board, startingCoordinate);
                     if (generatingFieldsTimer.getTimeSpentInMilis() >= Constants.MAX_AUTOMATIC_PLACING_SHIPS_TIME_IN_SECONDS) {
+                        board.removeAllShips();
                         throw new AutomaticPlacingShipsException("Couldn't auto set ships, check for board size or ship config");
                     }
                 } while (fields.isEmpty());
@@ -50,6 +51,7 @@ public class AutomaticShipPlacer {
                 ship.setShipType(shipType);
 
                 if (placingShipTimer.getTimeSpentInMilis() >= Constants.MAX_AUTOMATIC_PLACING_SHIPS_TIME_IN_SECONDS) {
+                    board.removeAllShips();
                     throw new AutomaticPlacingShipsException("Couldn't  auto set ships, check for board size or ship config");
                 }
             } while (!ShipPlacer.canShipBePlaced(ship, board));
