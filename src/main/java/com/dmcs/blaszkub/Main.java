@@ -1,16 +1,25 @@
 package com.dmcs.blaszkub;
 
+import com.dmcs.blaszkub.config.CustomSettings;
 import com.dmcs.blaszkub.config.GameConfig;
 import com.dmcs.blaszkub.core.Game;
 import com.dmcs.blaszkub.core.Player;
 import com.dmcs.blaszkub.enums.ModeType;
+import com.dmcs.blaszkub.model.Statistics;
 
-public class Main {
+public class GameStarter {
 
     public static void main(String[] args) {
-        GameConfig gameConfig = new GameConfig(ModeType.AUTO, 4, 4);
+        Game game;
+        CustomSettings customSettings = new CustomSettings();
 
-        Game game = new Game(gameConfig, new Player());
+        customSettings.setCustomGameConfig();
+        if (customSettings.isChosen()) {
+            game = new Game(customSettings.getGameConfig(), new Player(new Statistics()));
+        } else {
+            GameConfig gameConfig = new GameConfig(ModeType.AUTO, 25, 25);
+            game = new Game(gameConfig, new Player(new Statistics()));
+        }
 
         game.start();
     }
