@@ -1,10 +1,13 @@
 package com.dmcs.blaszkub.core;
 
 import com.dmcs.blaszkub.enums.FieldType;
+import com.dmcs.blaszkub.enums.ShipType;
 import com.dmcs.blaszkub.model.Board;
+import com.dmcs.blaszkub.model.Coordinate;
 import com.dmcs.blaszkub.model.Field;
 import com.dmcs.blaszkub.model.Ship;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShipPlacer {
@@ -22,5 +25,20 @@ public class ShipPlacer {
         }
 
         board.addShip(ship);
+    }
+
+    static List<Field> getShipFields(ShipType shipType) {
+        List<Field> fields = new ArrayList<>();
+        for (int i = 0; i < ShipType.getNumberOfFieldsOccupied(shipType); i++) {
+            fields.add(setField());
+        }
+
+        return fields;
+    }
+
+    private static Field setField() {
+        Coordinate coordinate = Coordinate.getCoordinatesFromPlayer();
+
+        return new Field(coordinate, FieldType.OCCUPIED_BY_SHIP);
     }
 }

@@ -120,11 +120,11 @@ public class ShipPlacerTest {
     public void place_ship_case_1() {
         Board board_1 = BoardData.getBoard(8, 8);
 
-        Field field_1 = board_1.getFieldByCoodinates(0, 0);
+        Field field_1 = board_1.getFieldByCoordinates(0, 0);
 
-        Field field_2 = board_1.getFieldByCoodinates(3, 0);
-        Field field_3 = board_1.getFieldByCoodinates(3, 1);
-        Field field_4 = board_1.getFieldByCoodinates(3, 2);
+        Field field_2 = board_1.getFieldByCoordinates(3, 0);
+        Field field_3 = board_1.getFieldByCoordinates(3, 1);
+        Field field_4 = board_1.getFieldByCoordinates(3, 2);
 
         Ship ship_1 = ShipData.getShip(Arrays.asList(field_1));
         Ship ship_2 = ShipData.getShip(Arrays.asList(field_2, field_3, field_4));
@@ -132,11 +132,11 @@ public class ShipPlacerTest {
         ShipPlacer.placeShip(ship_1, board_1);
         ShipPlacer.placeShip(ship_2, board_1);
 
-        assertSame(board_1.getFieldByCoodinates(0, 0).getFieldType(), FieldType.OCCUPIED_BY_SHIP);
+        assertSame(board_1.getFieldByCoordinates(0, 0).getFieldType(), FieldType.OCCUPIED_BY_SHIP);
 
-        assertSame(board_1.getFieldByCoodinates(3, 0).getFieldType(), FieldType.OCCUPIED_BY_SHIP);
-        assertSame(board_1.getFieldByCoodinates(3, 1).getFieldType(), FieldType.OCCUPIED_BY_SHIP);
-        assertSame(board_1.getFieldByCoodinates(3, 2).getFieldType(), FieldType.OCCUPIED_BY_SHIP);
+        assertSame(board_1.getFieldByCoordinates(3, 0).getFieldType(), FieldType.OCCUPIED_BY_SHIP);
+        assertSame(board_1.getFieldByCoordinates(3, 1).getFieldType(), FieldType.OCCUPIED_BY_SHIP);
+        assertSame(board_1.getFieldByCoordinates(3, 2).getFieldType(), FieldType.OCCUPIED_BY_SHIP);
     }
 
 }

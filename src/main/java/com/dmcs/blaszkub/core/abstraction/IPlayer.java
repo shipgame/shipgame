@@ -4,4 +4,5 @@ import com.dmcs.blaszkub.model.Board;
 
 public interface IPlayer {
     void makeMove(int x, int y, Board board);
+    void printPlayerStatistics();
 }

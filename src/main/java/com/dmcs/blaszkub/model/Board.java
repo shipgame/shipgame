@@ -37,10 +37,10 @@ public class Board {
                 }
             }
         }
-        throw new FieldNotFoundException(coordinate.getX(), coordinate.getY());
+        throw new FieldNotFoundException();
     }
 
-    public Field getFieldByCoodinates(int x, int y) {
+    public Field getFieldByCoordinates(int x, int y) {
         for (int i = 0; i < getXAxisLength(); i++) {
             for (int j = 0; j < getYAxisLength(); j++) {
                 if (i == x && j == y) {
@@ -48,7 +48,7 @@ public class Board {
                 }
             }
         }
-        throw new FieldNotFoundException(x, y);
+        throw new FieldNotFoundException();
     }
 
     public Ship getShipByCoordinate(final Coordinate coordinate) {
@@ -74,7 +74,7 @@ public class Board {
                     Coordinate coordinateToFill = new Coordinate(i, j);
 
                     if (GameLogic.canFieldBeMarkedAsShooted(coordinateToFill.getX(), coordinateToFill.getY(), this)) {
-                        Field field = getFieldByCoodinates(coordinateToFill.getX(), coordinateToFill.getY());
+                        Field field = getFieldByCoordinates(coordinateToFill.getX(), coordinateToFill.getY());
                         field.setFieldType(FieldType.SHOOTED);
                     }
                 }

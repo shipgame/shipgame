@@ -7,17 +7,19 @@ import com.dmcs.blaszkub.core.Player;
 import com.dmcs.blaszkub.enums.ModeType;
 import com.dmcs.blaszkub.model.Statistics;
 
-public class GameStarter {
+public class Main {
+
+    private static final int SIZE = 25;
 
     public static void main(String[] args) {
         Game game;
         CustomSettings customSettings = new CustomSettings();
 
         customSettings.setCustomGameConfig();
-        if (customSettings.isChosen()) {
+        if (customSettings.isSetByPlayer()) {
             game = new Game(customSettings.getGameConfig(), new Player(new Statistics()));
         } else {
-            GameConfig gameConfig = new GameConfig(ModeType.AUTO, 25, 25);
+            GameConfig gameConfig = new GameConfig(ModeType.AUTO, SIZE, SIZE);
             game = new Game(gameConfig, new Player(new Statistics()));
         }
 

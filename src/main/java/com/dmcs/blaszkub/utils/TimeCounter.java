@@ -17,9 +17,8 @@ public class TimeCounter {
     public Long getTimeSpentInMilis() {
         endMilis = System.currentTimeMillis();
         end = Instant.now();
-//        Long timeSpent = endMilis - startMilis;
-        Long timeSpent = end.getEpochSecond() - start.getEpochSecond();
-        return timeSpent;
+
+        return end.getEpochSecond() - start.getEpochSecond();
     }
 
     public void reset() {

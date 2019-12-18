@@ -12,19 +12,19 @@ public class GameLogic {
             return false;
         }
 
-        return !isFieldAlreadyShooted(board.getFieldByCoodinates(x, y).getCoordinate(), board);
+        return !isFieldAlreadyShooted(board.getFieldByCoordinates(x, y).getCoordinate(), board);
     }
 
     public static boolean isCordInBoardRange(int x, int y, Board board) {
         try {
-            board.getFieldByCoodinates(x, y);
+            board.getFieldByCoordinates(x, y);
             return true;
         } catch (FieldNotFoundException e) {
             return false;
         }
     }
 
-    public static boolean isCordInBoardRange(Coordinate coordinate, Board board) {
+    static boolean isCordInBoardRange(Coordinate coordinate, Board board) {
         try {
             board.getFieldByCoordinate(coordinate);
             return true;
@@ -33,7 +33,7 @@ public class GameLogic {
         }
     }
 
-    public static boolean isFieldAlreadyShooted(Coordinate coordinate, Board board) {
+    static boolean isFieldAlreadyShooted(Coordinate coordinate, Board board) {
         Field field = board.getFieldByCoordinate(coordinate);
         return field.isShootedShip() || field.isShooted() || field.isSubmergedShip();
     }
@@ -43,7 +43,7 @@ public class GameLogic {
             return false;
         }
 
-        Field field = board.getFieldByCoodinates(x, y);
+        Field field = board.getFieldByCoordinates(x, y);
         return field.isEmpty();
     }
 
