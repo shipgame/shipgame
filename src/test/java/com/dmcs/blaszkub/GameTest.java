@@ -8,20 +8,21 @@ import com.dmcs.blaszkub.enums.FieldType;
 import com.dmcs.blaszkub.enums.ModeType;
 import com.dmcs.blaszkub.model.Board;
 import com.dmcs.blaszkub.model.Ship;
+import com.dmcs.blaszkub.model.Statistics;
 import com.dmcs.blaszkub.utils.BoardPrinter;
 import org.junit.jupiter.api.Test;
 
-public class GameTest {
+class GameTest {
 
     @Test
-    public void move_test1() {
-        Game game = new Game(new GameConfig(ModeType.AUTO, 8, 8), new Player());
+    void move_test1() {
+        Game game = new Game(new GameConfig(ModeType.AUTO, 8, 8), new Player(new Statistics()));
 
         Board board = game.getBoard();
 
-        board.setFieldByCoordinate(board.getFieldByCoodinates(4, 1).getCoordinate(), FieldType.OCCUPIED_BY_SHIP);
-        board.setFieldByCoordinate(board.getFieldByCoodinates(4, 2).getCoordinate(), FieldType.OCCUPIED_BY_SHIP);
-        board.setFieldByCoordinate(board.getFieldByCoodinates(4, 3).getCoordinate(), FieldType.OCCUPIED_BY_SHIP);
+        board.setFieldByCoordinate(board.getFieldByCoordinates(4, 1).getCoordinate(), FieldType.OCCUPIED_BY_SHIP);
+        board.setFieldByCoordinate(board.getFieldByCoordinates(4, 2).getCoordinate(), FieldType.OCCUPIED_BY_SHIP);
+        board.setFieldByCoordinate(board.getFieldByCoordinates(4, 3).getCoordinate(), FieldType.OCCUPIED_BY_SHIP);
 
         setShips_case1(game);
 
@@ -36,14 +37,15 @@ public class GameTest {
         BoardPrinter.print(game.getBoard());
     }
 
+
     private void setShips_case1(Game game) {
         Ship ship_1 = new Ship();
 
         Board board = game.getBoard();
 
-        ship_1.addField(board.getFieldByCoodinates(4, 1));
-        ship_1.addField(board.getFieldByCoodinates(4, 2));
-        ship_1.addField(board.getFieldByCoodinates(4, 3));
+        ship_1.addField(board.getFieldByCoordinates(4, 1));
+        ship_1.addField(board.getFieldByCoordinates(4, 2));
+        ship_1.addField(board.getFieldByCoordinates(4, 3));
 
         ShipPlacer.placeShip(ship_1, board);
     }

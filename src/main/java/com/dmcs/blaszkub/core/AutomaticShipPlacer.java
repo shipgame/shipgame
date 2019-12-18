@@ -19,6 +19,9 @@ import java.util.List;
 
 public class AutomaticShipPlacer {
 
+    private static final String COULDN_T_AUTO_SET_SHIPS_CHECK_FOR_BOARD_SIZE_OR_SHIP_CONFIG = "Couldn't auto set ships, check for board size or ship config";
+    private static final String COULDN_T_AUTO_SET_SHIPS_CHECK_FOR_BOARD_SIZE_OR_SHIP_CONFIG1 = "Couldn't auto set ships, check for board size or ship config";
+
     public void placeShips(List<ShipType> shipTypes, Board board) throws AutomaticPlacingShipsException {
         TimeCounter generatingFieldsTimer = new TimeCounter();
         TimeCounter placingShipTimer = new TimeCounter();
@@ -41,7 +44,7 @@ public class AutomaticShipPlacer {
                     fields = getShipFields(direction, shipType, board, startingCoordinate);
                     if (generatingFieldsTimer.getTimeSpentInMilis() >= Constants.MAX_AUTOMATIC_PLACING_SHIPS_TIME_IN_SECONDS) {
                         board.removeAllShips();
-                        throw new AutomaticPlacingShipsException("Couldn't auto set ships, check for board size or ship config");
+                        throw new AutomaticPlacingShipsException(COULDN_T_AUTO_SET_SHIPS_CHECK_FOR_BOARD_SIZE_OR_SHIP_CONFIG);
                     }
                 } while (fields.isEmpty());
 
@@ -52,7 +55,7 @@ public class AutomaticShipPlacer {
 
                 if (placingShipTimer.getTimeSpentInMilis() >= Constants.MAX_AUTOMATIC_PLACING_SHIPS_TIME_IN_SECONDS) {
                     board.removeAllShips();
-                    throw new AutomaticPlacingShipsException("Couldn't  auto set ships, check for board size or ship config");
+                    throw new AutomaticPlacingShipsException(COULDN_T_AUTO_SET_SHIPS_CHECK_FOR_BOARD_SIZE_OR_SHIP_CONFIG1);
                 }
             } while (!ShipPlacer.canShipBePlaced(ship, board));
             placingShipTimer.reset();
@@ -62,8 +65,8 @@ public class AutomaticShipPlacer {
     }
 
     private void setStartingPoint(Coordinate coordinate, Board board) {
-        int x = 0;
-        int y = 0;
+        int x;
+        int y;
         do {
             x = NumberGenerator.getNumber(0, board.getXAxisLength() - 1);
             y = NumberGenerator.getNumber(0, board.getYAxisLength() - 1);
@@ -78,22 +81,22 @@ public class AutomaticShipPlacer {
         int startingX = startingPoint.getX();
         int startingY = startingPoint.getY();
 
-        Field startingFieldOfShip = board.getFieldByCoodinates(startingX, startingY);
+        Field startingFieldOfShip = board.getFieldByCoordinates(startingX, startingY);
         fields.add(startingFieldOfShip);
 
         try {
-            for (int i = 1; i < shipType.getNumberOfFieldsOccupied(shipType); i++) {
+            for (int i = 1; i < ShipType.getNumberOfFieldsOccupied(shipType); i++) {
                 if (directionType.equals(DirectionType.LEFT)) {
-                    Field field = board.getFieldByCoodinates(startingX, startingY - i);
+                    Field field = board.getFieldByCoordinates(startingX, startingY - i);
                     fields.add(field);
                 } else if (directionType.equals(DirectionType.TOP)) {
-                    Field field = board.getFieldByCoodinates(startingX + i, startingY);
+                    Field field = board.getFieldByCoordinates(startingX + i, startingY);
                     fields.add(field);
                 } else if (directionType.equals(DirectionType.RIGHT)) {
-                    Field field = board.getFieldByCoodinates(startingX, startingY + i);
+                    Field field = board.getFieldByCoordinates(startingX, startingY + i);
                     fields.add(field);
                 } else if (directionType.equals(DirectionType.DOWN)) {
-                    Field field = board.getFieldByCoodinates(startingX - i, startingY);
+                    Field field = board.getFieldByCoordinates(startingX - i, startingY);
                     fields.add(field);
                 } else {
                     return Collections.emptyList();

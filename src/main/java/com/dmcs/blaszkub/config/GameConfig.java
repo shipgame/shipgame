@@ -3,11 +3,13 @@ package com.dmcs.blaszkub.config;
 import com.dmcs.blaszkub.enums.ModeType;
 import com.dmcs.blaszkub.enums.ShipType;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Arrays;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
 public class GameConfig {
 
     private final List<ShipType> shipConfigs = Arrays.asList(

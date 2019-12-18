@@ -12,12 +12,13 @@ import org.junit.jupiter.api.*;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public class AutomaticShipPlacerTest {
+class AutomaticShipPlacerTest {
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         Constants.MAX_AUTOMATIC_PLACING_SHIPS_TIME_IN_SECONDS = 30L;
     }
 
@@ -28,7 +29,7 @@ public class AutomaticShipPlacerTest {
     }
 
     @Test
-    public void should_place_three_one_field_ships() {
+    void should_place_three_one_field_ships() {
         Board board = BoardData.getBoard(8, 8);
 
         List<ShipType> shipConfigs = Arrays.asList(
@@ -45,7 +46,7 @@ public class AutomaticShipPlacerTest {
     }
 
     @Test
-    public void should_place_two_two_field_ships() {
+    void should_place_two_two_field_ships() {
         Board board = BoardData.getBoard(8, 8);
 
         List<ShipType> shipConfigs = Arrays.asList(
@@ -67,8 +68,9 @@ public class AutomaticShipPlacerTest {
      THREE
      FOUR
      */
+
     @Test
-    public void should_place_ships_scenario_1() {
+    void should_place_ships_scenario_1() {
         Board board = BoardData.getBoard(15, 15);
 
         List<ShipType> shipConfigs = Arrays.asList(
@@ -92,7 +94,7 @@ public class AutomaticShipPlacerTest {
     TWO, TWO
     */
     @Test
-    public void should_place_ships_scenario_2() {
+    void should_place_ships_scenario_2() {
         Board board = BoardData.getBoard(12, 12);
 
         List<ShipType> shipConfigs = Arrays.asList(
@@ -117,7 +119,7 @@ public class AutomaticShipPlacerTest {
   FOUR
   */
     @Test
-    public void should_place_ships_scenario_3() {
+    void should_place_ships_scenario_3() {
         Board board = BoardData.getBoard(15, 15);
 
         List<ShipType> shipConfigs = Arrays.asList(
@@ -133,9 +135,8 @@ public class AutomaticShipPlacerTest {
         BoardPrinter.print(board);
     }
 
-    @Disabled
     @Test
-    public void should_throw_automatic_placing_ship_exception_when_can_not_place_ships_automatically() {
+    void should_throw_automatic_placing_ship_exception_when_can_not_place_ships_automatically() {
         Board board = BoardData.getBoard(4, 4);
 
         List<ShipType> shipConfigs = Arrays.asList(

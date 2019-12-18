@@ -1,27 +1,34 @@
 package com.dmcs.blaszkub.core;
 
+import com.dmcs.blaszkub.config.CustomSettings;
 import com.dmcs.blaszkub.config.GameConfig;
 import com.dmcs.blaszkub.core.abstraction.IGame;
 import com.dmcs.blaszkub.core.abstraction.IPlayer;
+import com.dmcs.blaszkub.enums.ModeType;
 import com.dmcs.blaszkub.enums.ShipType;
 import com.dmcs.blaszkub.model.Board;
+import com.dmcs.blaszkub.model.Coordinate;
 import com.dmcs.blaszkub.model.Ship;
 import com.dmcs.blaszkub.model.Statistics;
 import com.dmcs.blaszkub.utils.BoardPrinter;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static com.dmcs.blaszkub.config.CustomSettings.CHOOSE_SHOOT_COORDINATES;
+import static com.dmcs.blaszkub.config.CustomSettings.YOU_WON;
 
 @Getter
 @Setter
 public class Game implements IGame {
 
+    private Board board;
     private final GameConfig gameConfig;
     private final IPlayer player;
-    private Board board;
-    private Statistics statistics;
 
     private boolean isFinished;
 
@@ -32,15 +39,19 @@ public class Game implements IGame {
     }
 
     public void start() {
-        //TODO wyciagnij z gameConfig rozmiar planszy -> initBoard
-        //wyciagnij liczbe statkow i je rozmiesc, jak automat to losuj
-        //jak manual podajac kordy statku ustawiaj go
-
-        //TODO tutaj pobieraj dane ze strumienia, w petli while poki gra nie jest skonczona
-
-        //TODO na player wywolaj metode makeMove
-        //TODO po kazdym ruchu sprawdzaj czy gra nie jest skonczona
+        board = new Board(gameConfig.getXAxisLength(), gameConfig.getYAxisLength());
+        placeShips();
         BoardPrinter.print(board);
+
+        while (!isGameFinished()) {
+            System.out.println(CHOOSE_SHOOT_COORDINATES);
+            Coordinate coordinate = Coordinate.getCoordinatesFromPlayer();
+            player.makeMove(coordinate.getX(), coordinate.getY(), board);
+            BoardPrinter.print(board);
+        }
+
+        System.out.println(YOU_WON);
+        player.printPlayerStatistics();
     }
 
     private void initBoard() {
@@ -49,5 +60,20 @@ public class Game implements IGame {
 
     private boolean isGameFinished() {
         return getBoard().getShips().stream().allMatch(Ship::isSubmerged);
+    }
+
+    private void placeShips() {
+        CustomSettings customSettings = new CustomSettings();
+        List<ShipType> shipTypes = customSettings.getShipTypes();
+
+        if (gameConfig.getModeType() == ModeType.AUTO) {
+            AutomaticShipPlacer automaticShipPlacer = new AutomaticShipPlacer();
+            automaticShipPlacer.placeShips(shipTypes, board);
+        } else {
+            for (ShipType shipType : shipTypes) {
+                Ship ship = new Ship(shipType, ShipPlacer.getShipFields(shipType));
+                ShipPlacer.placeShip(ship, board);
+            }
+        }
     }
 }
