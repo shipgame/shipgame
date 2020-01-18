@@ -7,6 +7,9 @@ import com.dmcs.blaszkub.model.Field;
 
 public class GameLogic {
 
+    private GameLogic() {
+    }
+
     public static boolean isMoveValid(int x, int y, Board board) {
         if (!isCordInBoardRange(x, y, board)) {
             return false;

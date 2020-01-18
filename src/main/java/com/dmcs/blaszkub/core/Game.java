@@ -9,14 +9,10 @@ import com.dmcs.blaszkub.enums.ShipType;
 import com.dmcs.blaszkub.model.Board;
 import com.dmcs.blaszkub.model.Coordinate;
 import com.dmcs.blaszkub.model.Ship;
-import com.dmcs.blaszkub.model.Statistics;
 import com.dmcs.blaszkub.utils.BoardPrinter;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static com.dmcs.blaszkub.config.CustomSettings.CHOOSE_SHOOT_COORDINATES;

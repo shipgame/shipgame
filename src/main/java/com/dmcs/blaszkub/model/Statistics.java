@@ -1,13 +1,20 @@
 package com.dmcs.blaszkub.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class Statistics {
     private int allShoots;
     private int missedShoots;
 
-    double getHitShoots() {
+    private Statistics() {
+
+    }
+
+    int getHitShoots() {
         return allShoots - missedShoots;
     }
 

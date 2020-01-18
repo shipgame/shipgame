@@ -22,7 +22,7 @@ public class AutomaticShipPlacer {
     private static final String COULDN_T_AUTO_SET_SHIPS_CHECK_FOR_BOARD_SIZE_OR_SHIP_CONFIG = "Couldn't auto set ships, check for board size or ship config";
     private static final String COULDN_T_AUTO_SET_SHIPS_CHECK_FOR_BOARD_SIZE_OR_SHIP_CONFIG1 = "Couldn't auto set ships, check for board size or ship config";
 
-    public void placeShips(List<ShipType> shipTypes, Board board) throws AutomaticPlacingShipsException {
+    public void placeShips(List<ShipType> shipTypes, Board board) {
         TimeCounter generatingFieldsTimer = new TimeCounter();
         TimeCounter placingShipTimer = new TimeCounter();
 

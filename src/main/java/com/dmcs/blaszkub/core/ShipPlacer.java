@@ -12,6 +12,9 @@ import java.util.List;
 
 public class ShipPlacer {
 
+    private ShipPlacer() {
+    }
+
     public static boolean canShipBePlaced(Ship ship, Board board) {
         List<Field> fields = ship.getFields();
         return fields.stream().allMatch(f -> GameLogic.canShipFieldBeSet(f.getCoordinate(), board));

@@ -132,11 +132,11 @@ public class ShipPlacerTest {
         ShipPlacer.placeShip(ship_1, board_1);
         ShipPlacer.placeShip(ship_2, board_1);
 
-        assertSame(board_1.getFieldByCoordinates(0, 0).getFieldType(), FieldType.OCCUPIED_BY_SHIP);
+        assertSame(FieldType.OCCUPIED_BY_SHIP, board_1.getFieldByCoordinates(0, 0).getFieldType());
 
-        assertSame(board_1.getFieldByCoordinates(3, 0).getFieldType(), FieldType.OCCUPIED_BY_SHIP);
-        assertSame(board_1.getFieldByCoordinates(3, 1).getFieldType(), FieldType.OCCUPIED_BY_SHIP);
-        assertSame(board_1.getFieldByCoordinates(3, 2).getFieldType(), FieldType.OCCUPIED_BY_SHIP);
+        assertSame(FieldType.OCCUPIED_BY_SHIP, board_1.getFieldByCoordinates(3, 0).getFieldType());
+        assertSame(FieldType.OCCUPIED_BY_SHIP, board_1.getFieldByCoordinates(3, 1).getFieldType());
+        assertSame(FieldType.OCCUPIED_BY_SHIP, board_1.getFieldByCoordinates(3, 2).getFieldType());
     }
 
 }

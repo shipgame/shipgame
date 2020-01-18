@@ -1,26 +1,22 @@
 package com.dmcs.blaszkub;
 
-import com.dmcs.blaszkub.config.Constants;
 import com.dmcs.blaszkub.core.AutomaticShipPlacer;
 import com.dmcs.blaszkub.data.BoardData;
 import com.dmcs.blaszkub.enums.ShipType;
 import com.dmcs.blaszkub.exception.AutomaticPlacingShipsException;
 import com.dmcs.blaszkub.model.Board;
 import com.dmcs.blaszkub.utils.BoardPrinter;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 class AutomaticShipPlacerTest {
 
-    @BeforeEach
-    void setup() {
-        Constants.MAX_AUTOMATIC_PLACING_SHIPS_TIME_IN_SECONDS = 30L;
-    }
 
     @AfterEach
     private void printLine() {
@@ -41,7 +37,7 @@ class AutomaticShipPlacerTest {
         AutomaticShipPlacer automaticShipPlacer = new AutomaticShipPlacer();
         automaticShipPlacer.placeShips(shipConfigs, board);
 
-        assertSame(board.getShips().size(), 3);
+        assertSame(3, board.getShips().size());
         BoardPrinter.print(board);
     }
 
@@ -57,7 +53,7 @@ class AutomaticShipPlacerTest {
         AutomaticShipPlacer automaticShipPlacer = new AutomaticShipPlacer();
         automaticShipPlacer.placeShips(shipConfigs, board);
 
-        assertSame(board.getShips().size(), 2);
+        assertSame(2, board.getShips().size());
         BoardPrinter.print(board);
     }
 
@@ -83,7 +79,7 @@ class AutomaticShipPlacerTest {
         AutomaticShipPlacer automaticShipPlacer = new AutomaticShipPlacer();
         automaticShipPlacer.placeShips(shipConfigs, board);
 
-        assertSame(board.getShips().size(), 4);
+        assertSame(4, board.getShips().size());
         BoardPrinter.print(board);
     }
 
@@ -109,7 +105,7 @@ class AutomaticShipPlacerTest {
         AutomaticShipPlacer automaticShipPlacer = new AutomaticShipPlacer();
         automaticShipPlacer.placeShips(shipConfigs, board);
 
-        assertSame(board.getShips().size(), 6);
+        assertSame(6, board.getShips().size());
         BoardPrinter.print(board);
     }
 
@@ -131,7 +127,7 @@ class AutomaticShipPlacerTest {
         AutomaticShipPlacer automaticShipPlacer = new AutomaticShipPlacer();
         automaticShipPlacer.placeShips(shipConfigs, board);
 
-        assertSame(board.getShips().size(), 3);
+        assertSame(3, board.getShips().size());
         BoardPrinter.print(board);
     }
 
