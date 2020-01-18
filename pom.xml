@@ -43,4 +43,11 @@
         </plugins>
     </build>
 
+    <properties>
+        <sonar.projectKey>shipgame_shipgame</sonar.projectKey>
+        <sonar.organization>shipgame</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.login>efa16d4bf5327fd92935bba99ac2e6afb6a8d847</sonar.login>
+    </properties>
+
 </project>
