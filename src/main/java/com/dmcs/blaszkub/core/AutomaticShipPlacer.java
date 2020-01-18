@@ -48,7 +48,6 @@ public class AutomaticShipPlacer {
                     }
                 } while (fields.isEmpty());
 
-                generatingFieldsTimer.reset();
 
                 ship.setFields(fields);
                 ship.setShipType(shipType);
@@ -58,7 +57,6 @@ public class AutomaticShipPlacer {
                     throw new AutomaticPlacingShipsException(COULDN_T_AUTO_SET_SHIPS_CHECK_FOR_BOARD_SIZE_OR_SHIP_CONFIG1);
                 }
             } while (!ShipPlacer.canShipBePlaced(ship, board));
-            placingShipTimer.reset();
 
             ShipPlacer.placeShip(ship, board);
         }

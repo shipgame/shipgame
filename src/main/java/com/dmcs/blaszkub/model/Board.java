@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class Board {
     private int xAxisLength;
     private int yAxisLength;
-    private Field[][] board;
+    private Field[][] fields;
     private List<Ship> ships = new ArrayList<>();
 
     public Board(int xAxisLength, int yAxisLength) {
@@ -33,7 +33,7 @@ public class Board {
         for (int i = 0; i < getXAxisLength(); i++) {
             for (int j = 0; j < getYAxisLength(); j++) {
                 if (i == coordinate.getX() && j == coordinate.getY()) {
-                    return board[i][j];
+                    return fields[i][j];
                 }
             }
         }
@@ -44,7 +44,7 @@ public class Board {
         for (int i = 0; i < getXAxisLength(); i++) {
             for (int j = 0; j < getYAxisLength(); j++) {
                 if (i == x && j == y) {
-                    return board[i][j];
+                    return fields[i][j];
                 }
             }
         }
@@ -62,8 +62,8 @@ public class Board {
     }
 
     public void fillFieldsAroundSubmergedShip(Ship ship) {
-        List<Field> fields = ship.getFields();
-        List<Coordinate> coordinates = fields.stream().map(Field::getCoordinate).collect(Collectors.toList());
+        List<Field> fieldsOccupiedByShip = ship.getFields();
+        List<Coordinate> coordinates = fieldsOccupiedByShip.stream().map(Field::getCoordinate).collect(Collectors.toList());
 
         for (Coordinate coordinate : coordinates) {
             int xStartPoint = coordinate.getX();
@@ -92,10 +92,10 @@ public class Board {
     }
 
     private void initBoard() {
-        this.board = new Field[xAxisLength][yAxisLength];
+        this.fields = new Field[xAxisLength][yAxisLength];
         for (int i = 0; i < getXAxisLength(); i++) {
             for (int j = 0; j < getYAxisLength(); j++) {
-                board[i][j] = new Field(new Coordinate(i, j), FieldType.EMPTY);
+                fields[i][j] = new Field(new Coordinate(i, j), FieldType.EMPTY);
             }
         }
     }

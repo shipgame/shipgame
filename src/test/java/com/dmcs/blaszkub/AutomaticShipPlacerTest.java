@@ -15,6 +15,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+
 class AutomaticShipPlacerTest {
 
 
@@ -91,7 +92,7 @@ class AutomaticShipPlacerTest {
     */
     @Test
     void should_place_ships_scenario_2() {
-        Board board = BoardData.getBoard(12, 12);
+        Board board = BoardData.getBoard(15, 15);
 
         List<ShipType> shipConfigs = Arrays.asList(
                 ShipType.ONE,
@@ -130,6 +131,7 @@ class AutomaticShipPlacerTest {
         assertSame(3, board.getShips().size());
         BoardPrinter.print(board);
     }
+
 
     @Test
     void should_throw_automatic_placing_ship_exception_when_can_not_place_ships_automatically() {

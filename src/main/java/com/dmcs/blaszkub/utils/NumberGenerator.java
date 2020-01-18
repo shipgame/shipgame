@@ -8,6 +8,6 @@ public class NumberGenerator {
     }
 
     public static int getNumber(int min, int max) {
-        return min + (new Random().nextInt() * (max - min) + 1);
+        return new Random().nextInt(max - min) + min;
     }
 }
